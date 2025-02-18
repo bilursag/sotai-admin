@@ -18,8 +18,14 @@
         @method('patch')
 
         <div>
+            <x-input-label for="rut" :value="__('RUT')" />
+            <x-text-input id="rut" name="rut" type="text" class="mt-1 block w-full" :value="old('rut', $user->rut)" required autofocus />
+            <x-input-error class="mt-2" :messages="$errors->get('rut')" />
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -62,3 +68,16 @@
         </div>
     </form>
 </section>
+
+<script>
+    document.getElementById('rut').addEventListener('input', function (e) {
+        let rut = e.target.value.replace(/[^0-9kK]/g, '');
+        if (rut.length > 1) {
+            rut = rut.slice(0, -1) + '-' + rut.slice(-1).toUpperCase();
+        }
+        if (rut.length > 2) {
+            rut = rut.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + rut.slice(-2);
+        }
+        e.target.value = rut;
+    });
+</script>

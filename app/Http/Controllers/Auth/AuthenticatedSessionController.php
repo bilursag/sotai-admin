@@ -24,11 +24,27 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->validate([
+            'login' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ]);
 
-        $request->session()->regenerate();
+        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'rut';
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $credentials = [
+            $loginType => $request->login,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials, $request->remember)) {
+            $request->session()->regenerate();
+            
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->withErrors([
+            'login' => 'Las credenciales proporcionadas no coinciden con nuestros registros.'
+        ]);
     }
 
     /**

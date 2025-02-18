@@ -1,11 +1,18 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        
+        <!-- RUT -->
+        <div>
+            <x-input-label for="rut" :value="__('RUT')" />
+            <x-text-input id="rut" class="block mt-1 w-full" type="text" name="rut" :value="old('rut')" required autofocus />
+            <x-input-error :messages="$errors->get('rut')" class="mt-2" />
+        </div>
 
         <!-- Name -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
@@ -50,3 +57,16 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    document.getElementById('rut').addEventListener('input', function (e) {
+        let rut = e.target.value.replace(/[^0-9kK]/g, '');
+        if (rut.length > 1) {
+            rut = rut.slice(0, -1) + '-' + rut.slice(-1).toUpperCase();
+        }
+        if (rut.length > 2) {
+            rut = rut.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + rut.slice(-2);
+        }
+        e.target.value = rut;
+    });
+</script>

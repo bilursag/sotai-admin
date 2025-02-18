@@ -6,10 +6,16 @@
         @csrf
 
         <!-- Email Address -->
-        <div>
+        <!--<div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div> -->
+
+        <div>
+            <x-input-label for="login" :value="__('Email or RUT')" />
+            <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autofocus />
+            <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -45,3 +51,20 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    document.getElementById('login').addEventListener('input', function (e) {
+        let input = e.target.value;
+
+        if (/^[0-9kK]+$/.test(input.replace(/[.-]/g, ''))) {
+            let rut = input.replace(/[^0-9kK]/g, '');
+            if (rut.length > 1) {
+                rut = rut.slice(0, -1) + '-' + rut.slice(-1).toUpperCase();
+            }
+            if (rut.length > 2) {
+                rut = rut.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + rut.slice(-2);
+            }
+            e.target.value = rut;
+        }
+    });
+</script>
