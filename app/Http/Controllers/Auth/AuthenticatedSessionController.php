@@ -31,6 +31,8 @@ class AuthenticatedSessionController extends Controller
 
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'rut';
 
+        $loginValue = $loginType === 'rut' ? str_replace('.', '', $request->login) : $request->login;
+
         $credentials = [
             $loginType => $request->login,
             'password' => $request->password,

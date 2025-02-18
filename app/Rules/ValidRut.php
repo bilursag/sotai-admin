@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use Closure;
 use Illuminate\Contracts\Validation\Rule;
 
 class ValidRut implements Rule
@@ -12,23 +11,27 @@ class ValidRut implements Rule
         $rut = str_replace(['.', '-'], '', $value);
         $rut = strtoupper($rut);
 
-        $number = substr($rut, 0, -1);
+        $body = substr($rut, 0, -1);
         $dv = substr($rut, -1);
+
+        if (!ctype_digit($body) || !in_array($dv, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'K'])) {
+            return false;
+        }
 
         $sum = 0;
         $multiplier = 2;
-        for ($i = strlen($number) - 1; $i >= 0; $i--) {
-            $sum += $number[$i] * $multiplier;
+        for ($i = strlen($body) - 1; $i >= 0; $i--) {
+            $sum += $body[$i] * $multiplier;
             $multiplier = $multiplier == 7 ? 2 : $multiplier + 1;
         }
-        $dvOutput = 11 - ($sum % 11);
-        $dvOutput = $dvOutput == 11 ? '0' : ($dvOutput == 10 ? 'K' : strval($dvOutput));
+        $dvExpected = 11 - ($sum % 11);
+        $dvExpected = $dvExpected == 11 ? '0' : ($dvExpected == 10 ? 'K' : strval($dvExpected));
 
-        return $dv == $dvOutput;
+        return $dv == $dvExpected;
     }
 
     public function message()
     {
-        return 'El RUT ingresado no es válido';
+        return 'El RUT ingresado no es válido.';
     }
 }

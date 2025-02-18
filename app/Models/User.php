@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'rut',
         'email',
         'password',
         'rut'
@@ -34,6 +35,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function setRutAttribute($value)
+    {
+        $rut = str_replace('.', '', $value);
+        $this->attributes['rut'] = $rut;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -46,4 +53,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    
 }
