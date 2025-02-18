@@ -53,6 +53,18 @@
             @endif
         </div>
 
+        @role('admin')
+            <p class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Eres un administrador.</p>
+        @endrole
+
+        @role('editor')
+            <p class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Eres un editor.</p>
+        @endrole
+
+        @role('user')
+            <p class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Eres un usuario comun y corriente.</p>
+        @endrole
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
