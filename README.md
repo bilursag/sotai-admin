@@ -1,6 +1,6 @@
-# Proyecto Laravel - Administración de Usuarios
+# Proyecto Laravel - Sotai Admin
 
-Este es un proyecto basado en Laravel que permite la administración de usuarios con roles y permisos utilizando `spatie/laravel-permission`.
+Este es un proyecto basado en Laravel que permite la administración de usuarios con roles y permisos utilizando `spatie/laravel-permission`. Se puede ocupar como base e integración de cualquier proyecto que requiera administracion de usuarios, registro e inicio de sesión, roles y permisos.
 
 ## 🚀 Instalación y Configuración
 
@@ -8,8 +8,8 @@ Sigue estos pasos para instalar y configurar el proyecto correctamente.
 
 ### 📥 1. Clonar el repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd <NOMBRE_DEL_REPOSITORIO>
+git clone git@github.com:bilursag/sotai-admin.git
+cd sotai-admin
 ```
 
 ### 📌 2. Instalar dependencias
@@ -23,12 +23,12 @@ cp .env.example .env
 ```
 Luego, edita el archivo `.env` y configura los datos de la base de datos:
 ```env
-DB_CONNECTION=mysql
+DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=nombre_de_tu_base
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_contraseña
+DB_PORT=5432
+DB_DATABASE=sotai_admin
+DB_USERNAME=username
+DB_PASSWORD=password
 ```
 
 ### 🔑 4. Generar la clave de la aplicación
