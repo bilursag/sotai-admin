@@ -15,7 +15,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
-            'rut' => '12345678-9'
+            'rut' => '17864087-9'
         ]);
 
         $adminRole = Role::where('name', 'admin')->first();
