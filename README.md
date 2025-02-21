@@ -40,13 +40,20 @@ php artisan key:generate
 ```bash
 php artisan project:setup
 ```
+
 Esto ejecutará:
 - Migraciones de la base de datos.
 - Seeders personalizados (`RoleAndPermissionSeeder` y `AdminUserSeeder`).
 - Limpieza de caché.
 
-### 🏃 6. Iniciar el servidor
+### 💾 6. Instalar gestion de paquetes
 ```bash
+npm install
+```
+
+### 🏃 7. Iniciar el servidor
+```bash
+npm run dev
 php artisan serve
 ```
 
